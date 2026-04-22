@@ -7,7 +7,7 @@ from otoole import convert_results
 import logging
 logger = logging.getLogger(__name__)
 
-def sol2csv(path_to_solution: str, path_to_result: str, path_to_inputs: str, path_config: str):
+def sol2csv(path_to_solution: str, path_to_result: str, path_to_inputs: str, path_to_config: str):
     """Convert solution from Gurobi to CSV.
     """
 

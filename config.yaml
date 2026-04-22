@@ -1,5 +1,5 @@
 model: OSeMBE v1.0.0
-scenario: WP5_OPT-MIX
+scenario: NamiraN_MSc_REF
 region: iso2_start
 inputs:
 - iamc_variable: 'Price|Primary Energy|Biomass'
