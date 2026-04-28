@@ -6,7 +6,7 @@ dp_files = pd.read_csv('config/dp_files.txt')
 scenario_path = os.path.join("input_data")
 SCENARIOS = [x.name for x in os.scandir(scenario_path) if x.is_dir()]
 
-SCENARIOS = ['NamiraN_MSc__Thesis_REF2016']
+SCENARIOS = ['NamiraN_MSc_Thesis_REF2016']
 
 """
 Scenario selection.

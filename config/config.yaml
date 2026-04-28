@@ -156,6 +156,161 @@ REMinProductionTarget:
     type: param
     dtype: float
     default: 0
+REShareTarget:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetAT:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetBE:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetBG:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetCH:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetCY:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetCZ:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetDE:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetDK:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetEE:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetES:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetFI:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetFR:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetGR:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetHR:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetHU:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetIE:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetIT:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetLT:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetLU:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetLV:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetMT:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetNL:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetNO:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetPL:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetPT:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetRO:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetSE:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetSI:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetSK:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
+REShareTargetUK:
+    indices: [REGION,YEAR]
+    type: param
+    dtype: float
+    default: 0
 ReserveMargin:
     indices: [REGION,YEAR]
     type: param
@@ -773,8 +928,8 @@ YearlyPeakUK:
     default: 0
 # The following variable should be added after adjustments
 # to the resultify.py script in osemosys2iamc
-dual_values_EBa:
-    indices: [REGION,TIMESLICE,FUEL,YEAR]
-    type: result
-    dtype: float
-    default: 0
+# dual_values_EBa:
+#     indices: [REGION,TIMESLICE,FUEL,YEAR]
+#     type: result
+#     dtype: float
+#     default: 0

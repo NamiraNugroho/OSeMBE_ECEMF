@@ -16,14 +16,14 @@ CONSTRAINTS = ['Constr EBa11_EnergyBalanceEachTS5']
 def sol_gurobi(lp_path: str, environment, log_path: str, threads: int):
     m = gp.read(lp_path, environment)
     m.Params.LogToConsole = 0  # don't send log to console
-    m.Params.Method = 2  # 2 = barrier
-    m.Params.Threads = threads  # limit solve to use max {threads}
+    m.Params.Method = 1   # 2 = barrier, changed to 1 = primal simplex (less memory than barrier)
+    m.Params.Threads = 4  # limit solve to use max {threads}, changed to 4 to match M1 Mac cores, prevent it to hit out of memory
     m.Params.NumericFocus = 0  # 0 = automatic; 3 = slow and careful
     m.Params.LogFile = log_path  # don't write log to file
     m.optimize()
     return m
 
-def get_duals(model, path):
+def get_duals(model, path): 
     dual_v = {constr.ConstrName: constr.Pi for constr in model.getConstrs() }
     eq = []
     region = []
