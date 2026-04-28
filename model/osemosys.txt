@@ -199,6 +199,8 @@ param ReserveMargin{r in REGION, y in YEAR};
 param RETagTechnology{r in REGION, t in TECHNOLOGY, y in YEAR} binary;
 param RETagFuel{r in REGION, f in FUEL, y in YEAR} binary;
 param REMinProductionTarget{r in REGION, y in YEAR};
+# NEW MSc Namira #
+param REShareTarget {r in REGION, y in YEAR}
 #
 #########                        Emissions & Penalties                #############
 #
@@ -610,7 +612,8 @@ s.t. RE4_EnergyConstraint{r in REGION, y in YEAR}:REMinProductionTarget[r,y]*sum
 #s.t. RE2_TechIncluded{r in REGION, y in YEAR}: sum{m in MODEperTECHNOLOGY[t], l in TIMESLICE, t in TECHNOLOGY, f in FUEL} RateOfActivity[r,l,t,m,y]*OutputActivityRatio[r,t,f,m,y] * YearSplit[l,y]*RETagTechnology[r,t,y] = TotalREProductionAnnual[r,y];
 #s.t. RE3_FuelIncluded{r in REGION, y in YEAR}: sum{l in TIMESLICE, f in FUEL} sum{(m,t) in MODExTECHNOLOGYperFUELout[f]} RateOfActivity[r,l,t,m,y]*OutputActivityRatio[r,t,f,m,y]*RETagFuel[r,f,y] = RETotalProductionOfTargetFuelAnnual[r,y];
 #s.t. RE5_FuelUseByTechnologyAnnual{r in REGION, t in TECHNOLOGY, f in FUEL, y in YEAR}: sum{m in MODEperTECHNOLOGY[t], l in TIMESLICE} RateOfActivity[r,l,t,m,y]*InputActivityRatio[r,t,f,m,y]*YearSplit[l,y] = UseByTechnologyAnnual[r,t,f,y];
-#
+# NEW #
+# s.t. RE6_RenewableShareConstraint{r in REGION, y in YEAR:REShareTarget[r,y] >0}: sum{l in TIMESLICE, f in FUEL} sum{(m,t) in MODExTECHNOLOGYperFUELout[f]} RateOfActivity[r,l,t,m,y]*OutputActivityRatio[r,t,f,m,y]* YearSplit[l,y] >= REShareTarget[r,y]*sum{l in TIMESLICE, f in FUEL, (m,t) in MODExTECHNOLOGYperFUELout[f]} RateOfActivity[r,l,t,m,y]*OutputActivityRatio[r,t,f,m,y]* YearSplit[l,y];
 #########                   Emissions Accounting                ##############
 #
 s.t. E5_DiscountedEmissionsPenaltyByTechnology{r in REGION, t in TECHNOLOGY, y in YEAR}: sum{e in EMISSION, l in TIMESLICE, (m,tt) in MODExTECHNOLOGYperEMISSION[e]: t=tt} EmissionActivityRatio[r,t,e,m,y]*RateOfActivity[r,l,t,m,y]*YearSplit[l,y]*EmissionsPenalty[r,e,y]/CapitalRecoveryFactorMid[r,t,y] = DiscountedTechnologyEmissionsPenalty[r,t,y];
