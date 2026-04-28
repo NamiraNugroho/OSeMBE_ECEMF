@@ -1,5 +1,5 @@
 model: OSeMBE v1.0.0
-scenario: NamiraN_MSc_REF
+scenario: NamiraN_MSc_Thesis_REF2016
 region: iso2_start
 inputs:
 - iamc_variable: 'Price|Primary Energy|Biomass'
@@ -237,3 +237,7 @@ results:
   dual_commodity: ['^.{2}(E2)']
   unit: MEUR_2015/PJ
   osemosys_param: 'dual_values_EBa'
+# New NamiraN MSc Thesis, unit as % (percentage)
+- iamc_variable: 'Target|Secondary Energy|Electricity'
+  unit: '%'
+  osemosys_param: "REShareTarget"

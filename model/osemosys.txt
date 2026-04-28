@@ -199,8 +199,40 @@ param ReserveMargin{r in REGION, y in YEAR};
 param RETagTechnology{r in REGION, t in TECHNOLOGY, y in YEAR} binary;
 param RETagFuel{r in REGION, f in FUEL, y in YEAR} binary;
 param REMinProductionTarget{r in REGION, y in YEAR};
-# NEW MSc Namira #
-param REShareTarget {r in REGION, y in YEAR}
+# 
+# NEW MSc Namira # scale from 0-1, where 1.0 = 100%, based on RED III
+#
+param REShareTarget{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetAT{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetBE{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetBG{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetCH{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetCY{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetCZ{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetDE{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetDK{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetEE{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetES{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetFI{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetFR{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetGR{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetHR{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetHU{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetIE{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetIT{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetLT{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetLU{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetLV{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetMT{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetNL{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetNO{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetPL{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetPT{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetRO{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetSE{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetSI{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetSK{r in REGION, y in YEAR} >= 0 <= 1;
+param REShareTargetUK{r in REGION, y in YEAR} >= 0 <= 1;
 #
 #########                        Emissions & Penalties                #############
 #
@@ -612,8 +644,11 @@ s.t. RE4_EnergyConstraint{r in REGION, y in YEAR}:REMinProductionTarget[r,y]*sum
 #s.t. RE2_TechIncluded{r in REGION, y in YEAR}: sum{m in MODEperTECHNOLOGY[t], l in TIMESLICE, t in TECHNOLOGY, f in FUEL} RateOfActivity[r,l,t,m,y]*OutputActivityRatio[r,t,f,m,y] * YearSplit[l,y]*RETagTechnology[r,t,y] = TotalREProductionAnnual[r,y];
 #s.t. RE3_FuelIncluded{r in REGION, y in YEAR}: sum{l in TIMESLICE, f in FUEL} sum{(m,t) in MODExTECHNOLOGYperFUELout[f]} RateOfActivity[r,l,t,m,y]*OutputActivityRatio[r,t,f,m,y]*RETagFuel[r,f,y] = RETotalProductionOfTargetFuelAnnual[r,y];
 #s.t. RE5_FuelUseByTechnologyAnnual{r in REGION, t in TECHNOLOGY, f in FUEL, y in YEAR}: sum{m in MODEperTECHNOLOGY[t], l in TIMESLICE} RateOfActivity[r,l,t,m,y]*InputActivityRatio[r,t,f,m,y]*YearSplit[l,y] = UseByTechnologyAnnual[r,t,f,y];
-# NEW #
-# s.t. RE6_RenewableShareConstraint{r in REGION, y in YEAR:REShareTarget[r,y] >0}: sum{l in TIMESLICE, f in FUEL} sum{(m,t) in MODExTECHNOLOGYperFUELout[f]} RateOfActivity[r,l,t,m,y]*OutputActivityRatio[r,t,f,m,y]* YearSplit[l,y] >= REShareTarget[r,y]*sum{l in TIMESLICE, f in FUEL, (m,t) in MODExTECHNOLOGYperFUELout[f]} RateOfActivity[r,l,t,m,y]*OutputActivityRatio[r,t,f,m,y]* YearSplit[l,y];
+# 
+#########                   NEW MSc Namira RenewableShareConstraint  ############### Note: applies when REShareTarget is bigger than 0, REgeneration >= REShareTarget * total production (OutputActivityRatio), NECP mainly has percentage target. 
+#
+#s.t. RE6_RenewableShareConstraint{r in REGION, y in YEAR:REShareTarget[r,y] >0}: sum{l in TIMESLICE, f in FUEL} sum{(m,t) in MODExTECHNOLOGYperFUELout[f]} RateOfActivity[r,l,t,m,y] * OutputActivityRatio[r,t,f,m,y] * YearSplit[l,y] >= REShareTarget[r,y] * sum{l in TIMESLICE, f in FUEL} sum{(m,t) in MODExTECHNOLOGYperFUELout[f]} RateOfActivity[r,l,t,m,y] * OutputActivityRatio[r,t,f,m,y] * YearSplit[l,y];
+
 #########                   Emissions Accounting                ##############
 #
 s.t. E5_DiscountedEmissionsPenaltyByTechnology{r in REGION, t in TECHNOLOGY, y in YEAR}: sum{e in EMISSION, l in TIMESLICE, (m,tt) in MODExTECHNOLOGYperEMISSION[e]: t=tt} EmissionActivityRatio[r,t,e,m,y]*RateOfActivity[r,l,t,m,y]*YearSplit[l,y]*EmissionsPenalty[r,e,y]/CapitalRecoveryFactorMid[r,t,y] = DiscountedTechnologyEmissionsPenalty[r,t,y];
